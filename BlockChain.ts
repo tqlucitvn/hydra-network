@@ -22,10 +22,28 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
+  public getChain(): Block[] {
+    return this.chain;
+  }
+
   public addNewBlock(newBlock: Block): void {
     newBlock.setPreviousHash(this.getLatestBlock().getHash());
     newBlock.setHash(newBlock.calculateHash());
     this.chain.push(newBlock);
+  }
+
+  public isChainValid(): boolean {
+    for (let i = 1; i < this.chain.length; i++) {
+      const currentBlock = this.chain[i];
+      const previousBlock = this.chain[i - 1];
+
+      if (currentBlock.getHash() !== currentBlock.calculateHash()) return false;
+
+      if (currentBlock.getPreviousHash() !== previousBlock.getHash())
+        return false;
+    }
+
+    return true;
   }
 }
 

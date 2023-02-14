@@ -35,6 +35,14 @@ class Block {
     this.hash = hash;
   }
 
+  public getData(): any {
+    return this.data;
+  }
+
+  public setData(data: any): void {
+    this.data = data;
+  }
+
   public calculateHash(): string {
     return SHA256(
       this.index +
