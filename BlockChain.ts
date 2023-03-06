@@ -2,8 +2,10 @@ import Block from "./Block";
 
 class Blockchain {
   private chain: Block[];
+  private diff: number;
   constructor() {
     this.chain = [this.createGenesisBlock()];
+    this.diff = 4;
   }
 
   public createGenesisBlock(): Block {
@@ -28,7 +30,7 @@ class Blockchain {
 
   public addNewBlock(newBlock: Block): void {
     newBlock.setPreviousHash(this.getLatestBlock().getHash());
-    newBlock.setHash(newBlock.calculateHash());
+    newBlock.mineBlock(this.diff);
     this.chain.push(newBlock);
   }
 
